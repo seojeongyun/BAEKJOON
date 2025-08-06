@@ -1,96 +1,88 @@
+////
+////  Untitled.h
+////  
+////
+////  Created by 서정윤 on 7/23/25.
+////
 //
-//  Untitled.h
-//  
+
+//#include <stdio.h>
+//#include <stdlib.h>
 //
-//  Created by 서정윤 on 7/23/25.
+//typedef struct
+//{
+//    int* data;
+//    int rear;
+//    int front;
+//} Queue;
 //
-
-#include <stdio.h>
-
-void dfs(int idx);
-void bfs(void);
-
-#define MAX 1000
-typedef struct
-{
-    int front, rear;
-    int data[MAX];
-} Queue;
-
-int N, V, M = 0;
-int visited[MAX] = {0,};
-int graph[MAX][MAX] = {0,};
-
-Queue q;
-
-int main(void)
-{
-    scanf("%d %d %d", &N, &M, &V);
-    
-    // Graph
-    int x,y = 0;
-    //
-
-    for(int j = 0; j < M; j++)
-    {
-        scanf("%d %d", &x, &y);
-        graph[x][y] = 1;
-        graph[y][x] = 1;
-    }
-        
-
-    // DFS
-    dfs(V);
-    printf("--");
-    // BFS
-    for(int i = 0; i < MAX; i++)
-    {
-        visited[i] = 0;
-    }
-    
-    q.front = -1;
-    q.rear = -1;
-    q.data[++q.rear] =  V;
-    visited[V] = 1;
-    
-    bfs();
-    
-    return 0;
-}
-
-
-void dfs(int idx)
-{
-    visited[idx] = 1;
-    printf("%d ", idx);
-    
-    for(int next = 0; next < M+1; next++)
-    {
-        if(visited[next] != 1 && graph[idx][next])
-        {
-            dfs(next);
-        }
-    }
-}
-
-
-void bfs(void)
-{
-    int curr;
-    
-    while(q.front < q.rear)
-    {
-        curr = q.data[++q.front];
-        printf("%d ", curr);
-        
-        for(int next = 0; next < M+1; next++)
-        {
-            if(visited[next] != 1 && graph[curr][next])
-            {
-                visited[next] = 1;
-                q.data[++q.rear] = next;
-            }
-        }
-    }
-}
-
+//void DFS(int idx, int N, int *visited, int graph[][N+1]);
+//void BFS(Queue q, int N, int* visited, int graph[][N+1]);
+//
+//void DFS(int idx, int N, int *visited, int graph[][N+1])
+//{
+//    visited[idx] = 1;
+//    printf("%d ", idx);
+//    
+//    for (int next = 0; next < N + 1; next++)
+//    {
+//        if (visited[next] == 0 && graph[idx][next] == 1)
+//            DFS(next, N, visited, graph);
+//    }
+//}
+//
+//void BFS(Queue q, int N, int* visited, int graph[][N+1])
+//{
+//    while(q.front < q.rear)
+//    {
+//        int curr = q.data[++q.front];
+//        printf("%d ", curr);
+//        for(int next = 0; next < N + 1; next++)
+//        {
+//            if(visited[next] == 0 && graph[curr][next] == 1)
+//            {
+//                q.data[++q.rear] = next;
+//                visited[next] = 1;
+//            }
+//        }
+//    }
+//}
+//
+//int main()
+//{
+//    int N, M, V = 0;
+//    scanf("%d %d %d", &N, &M, &V);
+//    
+//    int (*graph)[N+1] = malloc(sizeof(int) * (N+1) * (N+1));
+//    int (*visited) = malloc(sizeof(int) * (N+1));
+//    
+//    int idx_a, idx_b = 0;
+//    for (int i = 0; i < M; i++)
+//    {
+//        scanf("%d %d", &idx_a, &idx_b);
+//        graph[idx_a][idx_b] = 1;
+//        graph[idx_b][idx_a] = 1;
+//    }
+//    
+//    // DFS
+//    DFS(V, N, visited, graph);
+//    printf("\n");
+//    
+//    // BFS
+//    for (int i = 0; i < N + 1; i++)
+//    {
+//        visited[i] = 0;
+//    }
+//    
+//    Queue q;
+//    q.data = (int*)malloc(sizeof(int) * N+1);
+//    q.rear = -1;
+//    q.front = -1;
+//    q.data[++q.rear] = V;
+//    visited[V] = 1;
+//    
+//    BFS(q, N, visited, graph);
+//
+//    
+//    return 0;
+//}
