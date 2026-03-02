@@ -27,14 +27,6 @@ if __name__ == '__main__':
     value.sort()
 
     # [1]
-    remain = K
-    while True:
-        for i in range(N-1, -1, -1):
-            if remain-value[i] > 0:
-                remain -= value[i]
-                break
-
-    print(answ)
 
 '''
 TC1
