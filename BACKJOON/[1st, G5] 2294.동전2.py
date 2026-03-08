@@ -23,11 +23,19 @@ if __name__ == '__main__':
 
     # [0] 입력
     N, K = map(int, input().strip().split())
-    value = [int(input()) for _ in range(N)]
-    value.sort()
+    values = [int(input()) for _ in range(N)]
 
     # [1]
+    dp = [10001] * (K+1)
+    dp[0] = 0
+    for v in values:
+        for i in range(v, K+1):
+            dp[i] = min(dp[i], dp[i-v]+1)
 
+    if dp[K] == 10001:
+        print(-1)
+    else:
+        print(dp[K])
 '''
 TC1
 3 15
