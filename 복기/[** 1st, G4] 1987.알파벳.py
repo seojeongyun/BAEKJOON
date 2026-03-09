@@ -19,6 +19,10 @@
 
     출력:
         - 말이 지날 수 있는 최대 칸수
+
+    ** 무조건 복기
+    https://too-march.tistory.com/152#google_vignette
+    https://leeingyun96.tistory.com/22
 '''
 
 import sys
@@ -31,35 +35,35 @@ def print_map(map):
 def in_range(ci, cj):
     return 0 <= ci < R and 0 <= cj < C
 
-def bfs(start):
-    global answ
-
-    i, j = start
-    visited[i][j] = 1
-    q = set()
-    q.add((i, j, map[i][j]))
-    #
-    while q:
-        ci, cj, alpha = q.pop()
-        answ = max(answ, len(alpha))
-        for di, dj in ((1,0),(-1,0),(0,1),(0,-1)):
-            ni, nj = ci+di, cj+dj
-            if in_range(ni, nj) and not visited[ni][nj] and map[ni][nj] not in alpha:
-                q.add((ni, nj, alpha+map[ni][nj]))
-
-
-# def dfs(start):
+# def bfs(start):
 #     global answ
 #
-#     ci, cj = start
-#     answ = max(answ, visited[alphabet[map[ci][cj]]])
+#     i, j = start
+#     visited[i][j] = 1
+#     q = set()
+#     q.add((i, j, map[i][j]))
 #     #
-#     for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-#         ni, nj = ci + di, cj + dj
-#         if in_range(ni, nj) and not visited[alphabet[map[ni][nj]]]:
-#             visited[alphabet[map[ni][nj]]] = visited[alphabet[map[ci][cj]]]+1
-#             dfs((ni,nj))
-#             visited[alphabet[map[ni][nj]]] = 0
+#     while q:
+#         ci, cj, alpha = q.pop()
+#         answ = max(answ, len(alpha))
+#         for di, dj in ((1,0),(-1,0),(0,1),(0,-1)):
+#             ni, nj = ci+di, cj+dj
+#             if in_range(ni, nj) and not visited[ni][nj] and map[ni][nj] not in alpha:
+#                 q.add((ni, nj, alpha+map[ni][nj]))
+
+
+def dfs(start, visited):
+    global answ
+
+    ci, cj = start
+    answ = max(answ, visited[alphabet[map[ci][cj]]])
+    #
+    for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        ni, nj = ci + di, cj + dj
+        if in_range(ni, nj) and not visited[alphabet[map[ni][nj]]]:
+            visited[alphabet[map[ni][nj]]] = visited[alphabet[map[ci][cj]]]+1
+            dfs((ni,nj),visited)
+            visited[alphabet[map[ni][nj]]] = 0
 
 
 if __name__ == '__main__':
@@ -76,13 +80,13 @@ if __name__ == '__main__':
                 'K':10, 'L':11, 'M':12, 'N':13, 'O':14, 'P':15, 'Q':16, 'R':17, 'S':18,
                 'T':19, 'U':20, 'V':21, 'W':22, 'X':23, 'Y':24, 'Z':25}
     # [2] DFS
-    # visited = [0] * 26
-    # visited[alphabet[map[0][0]]] = 1
-    # dfs((0,0))
+    visited = [0] * 26
+    visited[alphabet[map[0][0]]] = 1
+    dfs((0,0), visited)
 
     # [2-1] BFS
-    visited = [[0] * C for _ in range(R)]
-    bfs((0,0))
+    # visited = [[0] * C for _ in range(R)]
+    # bfs((0,0))
 
     # [3] answ
     print(answ)
