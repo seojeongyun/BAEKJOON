@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
         # 다른 중심점일 때
         else:
-            # 바깥에서 겹칠 때
+            # 내접 ~ 외접
             if abs(r1-r2) < dist < abs(r1+r2):
                 answ_lst.append(2)
             # 외접
@@ -36,12 +36,10 @@ if __name__ == '__main__':
             # 내접
             elif abs(r1-r2) == dist:
                 answ_lst.append(1)
-            # 안에서 겹칠 때
-            # elif abs(r1-r2) < dist:
-            #     answ_lst.append(2)
-            # 그 외
+            # 그 외=겹치지 않을 때
             else:
                 answ_lst.append(0)
+
     for answ in answ_lst:
         print(answ)
 '''
