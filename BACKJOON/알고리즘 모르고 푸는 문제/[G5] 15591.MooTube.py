@@ -19,27 +19,26 @@
 
 import sys
 from collections import deque
+
 def print_arr(arr):
     for row in arr:
         print(*row)
 
-# 탐색하면서 작은 값으로 업데이트하는 건 순차적으로 동작하게 됨
-# 4 -> 3 -> 2 이면, 4,3 비교할 땐 3이 작은데 최솟값은 2라서 오답이 됨
-# 연결된 그래프의 가중치가 최소가 되도록 전처리한 후 BFS.
-# 전처리하는 작업만 하면 될 거 같음
 def BFS(start, k):
     answ = 0
-    visited[start] = 1000000000
+    visited[start] = 1
+    usado_max = sys.maxsize
     q = deque()
-    q.append(start)
+    q.append((start,usado_max))
 
     while q:
-        ci = q.popleft()
-        for ni in range(N+1):
-            if not visited[ni] and arr[ni][ci]:
-                visited[ni] = min(visited[ci], arr[ni][ci])
-                q.append(ni)
-                if arr[ni][ci] >= k:
+        ci, usado = q.popleft()
+        for ni, w in graph[ci]:
+            if not visited[ni]:
+                n_usado = min(usado, w)
+                visited[ni] = 1
+                q.append((ni, n_usado))
+                if n_usado >= k:
                     answ += 1
 
     return answ
@@ -55,23 +54,35 @@ if __name__ == '__main__':
     kv_lst = [list(map(int, input().strip().split())) for _ in range(Q)]
 
     # [1] pqr_list로 map 만들기
-    arr = [[0] * (N+1) for _ in range(N+1)]
+    # arr = [[0] * (N+1) for _ in range(N+1)]
+    graph = [[] for _ in range(N + 1)]
     for p, q, r in pqr_lst:
-        arr[p][q] = r
-        arr[q][p] = r
-        # 여기서 최소값 처리만 해주면 될듯
+        graph[p].append((q, r))
+        graph[q].append((p, r))
+        # arr[p][q] = r
+        # arr[q][p] = r
+
 
     # [2] 질문별로  DFS/BFS 적용해서 개수 구하기
     for k, v in kv_lst:
         # 각 질문에 대해 DFS/BFS 적용할 것이니 v배열 초기화
         visited = [0] * (N+1)
+        # 여기서 최소값으로 arr 업데이트하고
         answ = BFS(v, k)
+
+        # 여기서 BFS
         answ_lst.append(answ)
 
     for answ in answ_lst:
         print(answ)
 
 
-
-
-
+    # combination 적용해서 그래프 형성해야되네. X 아니었다.
+    # 1----2----3----4
+    #   4     3    2
+    # 위처럼 1-2를 잇는 유사도는 4, 2-3을 잇는 유사도는 3, 3-4를 잇는 유사도는 2라고 할 때
+    # 1----2----3----4
+    #    2    2    2
+    # 최솟값인 2로 맞춰놓고 풀어야한다고 생각했음.
+    # 그런데 생각해보면 1부터 3까지 이동하는 경로의 최솟값은 min(4,3)=3임. 2가 아님.
+    # 즉, 방문하면서 최솟값 갱신하는 방법으로 풀어야함.
