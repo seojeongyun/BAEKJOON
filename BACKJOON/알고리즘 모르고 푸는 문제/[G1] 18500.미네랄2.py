@@ -20,6 +20,8 @@
 
     입력: 동굴에 있는 미네랄의 모양과 두 사람이 던진 막대의 높이가 주어진다
     출력: 모든 막대를 던지고 난 이후의 미네랄 모양을 구하시오.
+
+    반례 모음: https://lycos7560.com/cpp/baekjoon_online_judge/%EB%B0%B1%EC%A4%80-18500%EB%B2%88-%EB%AF%B8%EB%84%A4%EB%9E%84-2-c-simulation-%EC%B6%94%EA%B0%80-%EB%B0%98%EB%A1%80-baekjoon/5533/
 '''
 
 import sys
