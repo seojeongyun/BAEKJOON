@@ -34,17 +34,21 @@ if __name__ == '__main__':
         answ = sorted(line)
 
         try_num = 0
-        i, j = 0, 1
-        while line != answ:
-            if line[i] > line[j]:
-                try_num += 1
-                tmp = line[i]
-                line[i] = line[j]
-                line[j] = tmp
-            i += 1
-            j += 1
-            if i == 19 and j == 20:
-                i, j = 0, 1
+        # i, j = 0, 1
+        # while line != answ:
+        #     if line[i] > line[j]:
+        #         try_num += 1
+        #         line[i], line[j] = line[j], line[i]
+        #     i += 1
+        #     j += 1
+        #     if i == 19 and j == 20:
+        #         i, j = 0, 1
+
+        for i in range(19):
+            for j in range(i+1, 20):
+                if line[i] > line[j]:
+                    line[i], line[j] = line[j], line[i]
+                    try_num += 1
 
         answer.append((TC_NUM, try_num))
 
