@@ -7,6 +7,7 @@
 # 투포인터 사용하면 될듯
 
 import sys
+import time
 
 def solution(n):
     # sum_lst = []
@@ -28,13 +29,14 @@ def solution(n):
 
     # 투포인터
     for i in range(N+1):
-        start = i
         sum = 0
         for j in range(i+1,N+1):
             end = j
             sum += end
             if sum == N:
                 answer_cnt += 1
+                break
+            if sum > N:
                 break
 
     return answer_cnt
@@ -46,6 +48,9 @@ if __name__ == '__main__':
     N = input().strip()
 
     # [1] solution
+    start = time.time()
     print(solution(N))
+    end = time.time()
+    print(end-start)
 
 
