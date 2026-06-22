@@ -7,7 +7,8 @@ def solution(n, t):
     return answer
 
 '''
-def solution(n, t):
-    return n << t
+    [2의 N승은 비트시프트로]
+    def solution(n, t):
+        return n << t
 
 '''

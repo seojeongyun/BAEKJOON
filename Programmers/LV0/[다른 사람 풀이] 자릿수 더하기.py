@@ -14,6 +14,7 @@ def solution(n):
     return answer
 
 '''
+    [주어진 정수 문자화]
     def solution(n):
         return sum(int(i) for i in str(n))
 '''
