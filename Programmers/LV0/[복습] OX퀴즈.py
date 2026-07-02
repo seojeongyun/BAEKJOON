@@ -6,12 +6,48 @@
 '''
 
 
+# def solution(quiz):
+#     answer = []
+#
+#     for q in quiz:
+#         if str(eval(q.split('=')[0])) == q.split('=')[-1].strip():
+#             answer.append("O")
+#         else:
+#             answer.append("X")
+#     return answer
+
+# 아래 코드는 -3 - -2 = -5 와 같은 코드 제대로 처리 X
 def solution(quiz):
     answer = []
-
     for q in quiz:
-        if str(eval(q.split('=')[0])) == q.split('=')[-1].strip():
-            answer.append("O")
+        left = q.split('=')[0]
+        right = q.split('=')[-1]
+
+        if '-' in left:
+            left = int(left.split(' - ')[0]) - int(left.split(' - ')[-1])
         else:
-            answer.append("X")
+            left = int(left.split(' + ')[0]) + int(left.split(' + ')[-1])
+
+        if str(left) == right:
+            answer.append('O')
+        else:
+            answer.append('X')
     return answer
+
+
+def solution(quiz):
+    answer = []
+    for q in quiz:
+        left, right = q.split(' = ')
+        a, op, b = left.split()
+
+        if op == '+':
+            result = 'O' if int(a) + int(b) == int(right) else 'X'
+            answer.append(result)
+        else:
+            result = 'O' if int(a) - int(b) == int(right) else 'X'
+            answer.append(result)
+    return answer
+
+
+solution(["19 - 6 = 13", "5 + 66 = 71", "5 - 15 = 63", "3 - 1 = 2"])
