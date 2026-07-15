@@ -12,7 +12,6 @@ def solution(arr, delete_list):
             del arr[arr.index(d)]
     return arr
 
-
 '''
     def solution(arr, delete_list):
         return [i for i in arr if i not in delete_list]
